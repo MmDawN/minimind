@@ -1,0 +1,29 @@
+[project]
+name = "minimind"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "MmDawN", email = "876288913@163.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "datasets==3.6.0",
+    "swanlab==0.9.8",
+    "torch==2.6.0",
+    "torchlens>=3.0.3",
+    "torchvision==0.21.0",
+    "transformers==4.57.6",
+]
+
+[project.scripts]
+minimind = "minimind:main"
+
+[build-system]
+requires = ["uv_build>=0.13.8,<0.14.0"]
+build-backend = "uv_build"
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
