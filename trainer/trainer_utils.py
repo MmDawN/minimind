@@ -15,6 +15,7 @@ import torch
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel
 from torch.utils.data import Sampler
+from torchlens import summary
 from transformers import AutoTokenizer, AutoModel, AutoModelForSequenceClassification
 from model.model_minimind import MiniMindForCausalLM
 
@@ -30,7 +31,8 @@ def get_model_params(model, config):
     active = base + (expert * n_active) + (shared_expert * n_shared)
     if active < total: Logger(f'Model Params: {total:.2f}M-A{active:.2f}M')
     else: Logger(f'Model Params: {total:.2f}M')
-
+    if is_main_process():
+        print(summary(model, input_shape=(1, 26), columns=["name", "input", "output", "params", "macs", "flops"]))
 
 # ======== 主进程判断 ========
 def is_main_process():
